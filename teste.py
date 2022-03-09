@@ -1,14 +1,15 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import Optional
 
 app = FastAPI()
 
-usuarios = [(1, 'caio', 'minhasenha1'), (2, 'joao', 'minhasenha2'), (3, 'alefe', 'minhasenha3')]
+class Usuario(BaseModel):
+    id: int
+    nome: str
+    senha: str
 
 
-@app.post('/usuarios')
-def main (nome):
-    for i in usuarios :
-        if i[1] == nome:
-            return i[1:3]
-
-    return "Usuario não encontrado"
+@app.post('/usuario')
+def main (usuario:Usuario):
+    return usuario
