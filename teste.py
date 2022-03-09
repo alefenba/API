@@ -1,16 +1,14 @@
 from fastapi import FastAPI
 
 app = FastAPI()
-@app.get('/')
-def root():
-	return {'mensagem':'Olá Mundo'}
+
+usuarios = [(1, 'caio', 'minhasenha1'), (2, 'joao', 'minhasenha2'), (3, 'alefe', 'minhasenha3')]
 
 
-@app.get('/cadastro')
-def cadastro():
-    return {'mensagem':'Cadastro'}
+@app.post('/usuarios')
+def main (nome):
+    for i in usuarios :
+        if i[1] == nome:
+            return i[1:3]
 
-
-@app.get('/login')
-def login():
-    return {'mensagem':'login'}
+    return "Usuario não encontrado"
